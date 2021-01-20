@@ -12,13 +12,13 @@
 RootModule = 'SGMailer.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.0.1'
+ModuleVersion = '1.0.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
 
 # ID used to uniquely identify this module
-GUID = '22c8d40a-ea95-4c7e-af93-ee00fc9eccea'
+GUID = '187b5e3a-4539-49e4-a3f1-9c7da114e450'
 
 # Author of this module
 Author = 'Peter Ruzicska'

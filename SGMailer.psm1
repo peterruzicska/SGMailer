@@ -185,3 +185,4 @@ function Send-SGMail{
     }
 
 Export-ModuleMember -Function Send-SGMail,Install-SGToken,New-SGToken,Get-SGTokenUsageScript
+

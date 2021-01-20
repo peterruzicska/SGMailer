@@ -8,7 +8,7 @@ SendGrid v3 REST API PowerShell module for sending automated emails via SendGrid
   - api\_keys.delete
   - api\_keys.read
   - api\_keys.update
-  - send
+  - mail.send
 
 ## Setting up the environment, basic usage
 
@@ -74,3 +74,58 @@ Send-SGEmail -From john.doe@example.com -To jane.doe@example.com -Subject \"Conf
 PS \> # Send a plain text email
 
 Send-SGEmail -From jane.doe@example.com -To john.doe@example.com -Subject \"Re: Confession\" -Body \"Love you too!\" -NoHTML
+
+## Install-SGToken
+### NAME
+Install-SGToken
+### SYNOPSIS
+Sets the SendGridToken environment variable.
+### SYNTAX
+Install-SGToken [-Token] \<String\> [\<CommonParameters\>]
+### DESCRIPTION
+Sets the Token parameter as encrypted to the SendGridToken environment variable.
+### PARAMETERS
+#### -Token \<String\>
+SendGrid token. Should be able to have at least api\_keys.create, api\_keys.delete, api\_keys.read, api\_keys.update, mail.send privilege.
+#### \<CommonParameters\>
+This cmdlet supports the common parameters: Verbose, Debug, ErrorAction, ErrorVariable, WarningAction, WarningVariable, OutBuffer, PipelineVariable, and OutVariable. For more information, see about_CommonParameters (https://go.microsoft.com/fwlink/?LinkID=113216).
+### -------------------------- EXAMPLE 1 --------------------------
+PS \> Install-SGToken -Token \"SG.CxHQIu86rtWZ9EoIyDAeXg.BS83T0fRegjl3oH076Pfc5hqx8hcK9PJePUsuqNFkEy4\"
+
+## New-SGToken
+### NAME
+New-SGToken
+### SYNOPSIS
+Gets the SendGridToken via SendGrid REST API v3.
+### SYNTAX
+New-SGToken [-AdminToken] \<String\> [[-APIKeyName] \<String\>] [\<CommonParameters\>]
+### DESCRIPTION
+Gets the SendGridToken via SendGrid REST API v3.
+### PARAMETERS
+#### -AdminToken \<String\>
+SendGrid token with at least api\_keys.create, api\_keys.delete, api\_keys.read, api\_keys.update, mail.send privilege.
+#### -APIKeyName \<String\>
+SendGrid API key name. Give a recognizable name to the API key. Defaults to $env:COMPUTERNAME
+#### \<CommonParameters\>
+This cmdlet supports the common parameters: Verbose, Debug, ErrorAction, ErrorVariable, WarningAction, WarningVariable, OutBuffer, PipelineVariable, and OutVariable. For more information, see about_CommonParameters (https://go.microsoft.com/fwlink/?LinkID=113216).
+### -------------------------- EXAMPLE 1 --------------------------
+PS > New-SGToken -AdminToken \"SG.CxHQIu86rtWZ9EoIyDAeXg.BS83T0fRegjl3oH076Pfc5hqx8hcK9PJePUsuqNFkEy4\"
+### -------------------------- EXAMPLE 2 --------------------------
+PS > New-SGToken -APIKeyName \"Johns PC\" -AdminToken \"SG.CxHQIu86rtWZ9EoIyDAeXg.BS83T0fRegjl3oH076Pfc5hqx8hcK9PJePUsuqNFkEy4\"
+
+## Get-SGTokenUsageScript
+### NAME
+Get-SGTokenUsageScript
+### SYNOPSIS
+Gets the code snippet to be pasted into scripts where emails will be sent from. Must use Install-SGToken first.
+### SYNTAX
+Get-SGTokenUsageScript [-CopyToClipboard] [\<CommonParameters\>]
+### DESCRIPTION
+Gets the code snippet to be pasted into scripts where emails will be sent from. Must use Install-SGToken first.
+### PARAMETERS
+#### -CopyToClipboard [\<SwitchParameter\>]
+If given, the code snippet will be copied to the clipboard.
+#### \<CommonParameters\>
+This cmdlet supports the common parameters: Verbose, Debug, ErrorAction, ErrorVariable, WarningAction, WarningVariable, OutBuffer, PipelineVariable, and OutVariable. For more information, see about_CommonParameters (https://go.microsoft.com/fwlink/?LinkID=113216).
+### -------------------------- EXAMPLE 1 --------------------------
+PS > Get-SGTokenUsageScript -CopyToClipboard

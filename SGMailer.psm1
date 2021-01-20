@@ -29,8 +29,8 @@ function New-SGToken{
     .Description
     Gets the SendGridToken via SendGrid REST API v3.
 
-    .Parameter Token
-    SendGrid token. Should be able to have at least "send email" privilege.
+    .Parameter AdminToken
+    SendGrid token with at least api_keys.create, api_keys.delete, api_keys.read, api_keys.update, mail.send privilege.
 
     .Parameter APIKeyName
     SendGrid API key name. Give a recognizable name to the API key. Defaults to $env:COMPUTERNAME

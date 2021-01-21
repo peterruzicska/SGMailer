@@ -92,7 +92,7 @@ function Install-SGToken{
         $SetENVVar = [Scriptblock]::Create("[System.Environment]::SetEnvironmentVariable('SendGridToken',([SecureString]('"+$Token+"' | ConvertTo-SecureString -AsPlainText -Force) |ConvertFrom-SecureString),'Machine')")
 
         ##Starting elevated process and executing the scriptblock
-        Start-Process pwsh.exe -Verb RunAs -ArgumentList "-command $SetENVVar"
+        Start-Process powershell.exe -Verb RunAs -ArgumentList "-command $SetENVVar"
         }
     else{
         ##Converting Token to SecureString and setting as SendGridToken environment variable

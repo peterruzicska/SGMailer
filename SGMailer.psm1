@@ -36,10 +36,10 @@ function New-SGToken{
     SendGrid API key name. Give a recognizable name to the API key. Defaults to $env:COMPUTERNAME
 
     .Example
-    New-SGToken -AdminToken "SG.CxHQIu86rtWZ9EoIyDAeXg.BS83T0fRegjl3oH076Pfc5hqx8hcK9PJePUsuqNFkEy4"
+    New-SGToken -AdminToken "SG.asdfASDF1234....."
 
     .Example
-    New-SGToken -APIKeyName "Johns PC" -AdminToken "SG.CxHQIu86rtWZ9EoIyDAeXg.BS83T0fRegjl3oH076Pfc5hqx8hcK9PJePUsuqNFkEy4"
+    New-SGToken -APIKeyName "Johns PC" -AdminToken "SG.asdfASDF1234....."
 
     #>
     param(
@@ -76,7 +76,7 @@ function Install-SGToken{
 
     .Example
 
-    Install-SGToken -Token "SG.CxHQIu86rtWZ9EoIyDAeXg.BS83T0fRegjl3oH076Pfc5hqx8hcK9PJePUsuqNFkEy4"
+    Install-SGToken -Token "SG.asdfASFD1234....."
 
     #>
     param(

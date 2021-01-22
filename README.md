@@ -90,7 +90,7 @@ SendGrid token. Should be able to have at least api\_keys.create, api\_keys.dele
 #### \<CommonParameters\>
 This cmdlet supports the common parameters: Verbose, Debug, ErrorAction, ErrorVariable, WarningAction, WarningVariable, OutBuffer, PipelineVariable, and OutVariable. For more information, see about_CommonParameters (https://go.microsoft.com/fwlink/?LinkID=113216).
 ### -------------------------- EXAMPLE 1 --------------------------
-PS \> Install-SGToken -Token \"SG.CxHQIu86rtWZ9EoIyDAeXg.BS83T0fRegjl3oH076Pfc5hqx8hcK9PJePUsuqNFkEy4\"
+PS \> Install-SGToken -Token \"SG.asdfASDF1234.....\"
 
 ## New-SGToken
 ### NAME
@@ -109,9 +109,9 @@ SendGrid API key name. Give a recognizable name to the API key. Defaults to $env
 #### \<CommonParameters\>
 This cmdlet supports the common parameters: Verbose, Debug, ErrorAction, ErrorVariable, WarningAction, WarningVariable, OutBuffer, PipelineVariable, and OutVariable. For more information, see about_CommonParameters (https://go.microsoft.com/fwlink/?LinkID=113216).
 ### -------------------------- EXAMPLE 1 --------------------------
-PS > New-SGToken -AdminToken \"SG.CxHQIu86rtWZ9EoIyDAeXg.BS83T0fRegjl3oH076Pfc5hqx8hcK9PJePUsuqNFkEy4\"
+PS > New-SGToken -AdminToken \"SG.asdfASDF1234.....\"
 ### -------------------------- EXAMPLE 2 --------------------------
-PS > New-SGToken -APIKeyName \"Johns PC\" -AdminToken \"SG.CxHQIu86rtWZ9EoIyDAeXg.BS83T0fRegjl3oH076Pfc5hqx8hcK9PJePUsuqNFkEy4\"
+PS > New-SGToken -APIKeyName \"Johns PC\" -AdminToken \"SG.asdfASDF1234.....\"
 
 ## Get-SGTokenUsageScript
 ### NAME

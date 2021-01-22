@@ -16,10 +16,13 @@
     param(
         [switch]$CopyToClipboard
         )
-    $CodeSnippet = [Scriptblock]::Create('[SecureString]$SecureToken = [System.Environment]::GetEnvironmentVariable("SendGridToken","Machine") |ConvertTo-SecureString
-$SendGridToken = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR(($SecureToken)))')
-    if($CopyToClipboard){$CodeSnippet |Set-Clipboard}
-    else{return $CodeSnippet}
+    if(!$env:SendGridToken){throw "SendGridToken missing. If you installed it, please try it from a new PS session! Otherwise give it directly using the -SendGridToken parameter or install it using the Install-SGToken command."}
+    else{
+        $CodeSnippet = [Scriptblock]::Create('[SecureString]$SecureToken = [System.Environment]::GetEnvironmentVariable("SendGridToken","Machine") |ConvertTo-SecureString
+    $SendGridToken = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR(($SecureToken)))')
+        if($CopyToClipboard){$CodeSnippet |Set-Clipboard}
+        else{return $CodeSnippet}
+        }
     }
 function New-SGToken{
     <#
@@ -66,10 +69,10 @@ function New-SGToken{
 function Install-SGToken{
     <#
     .Synopsis
-    Sets the SendGridToken environment variable.
+    Sets the SendGridToken environment variable. After usage, please restart PS session.
 
     .Description
-    Sets the Token parameter as encrypted to the SendGridToken environment variable.
+    Sets the Token parameter as encrypted to the SendGridToken environment variable. After usage, please restart PS session.
 
     .Parameter Token
     SendGrid token. Should be able to have at least "send email" privilege.
@@ -124,6 +127,7 @@ function Send-SGMail{
     .Parameter SendGridToken
     Direct input of the SendGrid REST API v3 token.
     Default: use encrypted token from $env:SendGridToken (which can be installed using Install-SGToken)
+    If missing but recently installed, please restart PS session.
 
     .Parameter Body
     Email body as string.
@@ -154,7 +158,7 @@ function Send-SGMail{
 
     ## Getting SendGridToken
     if(!$SendGridToken){
-        if(!$env:SendGridToken){throw "SendGridToken missing. Give it directly using the -SendGridToken parameter or install it using the Install-SGToken command."}
+        if(!$env:SendGridToken){throw "SendGridToken missing. If you installed it, please try it from a new PS session! Otherwise give it directly using the -SendGridToken parameter or install it using the Install-SGToken command."}
         [SecureString]$SecureToken = [System.Environment]::GetEnvironmentVariable("SendGridToken","Machine") |ConvertTo-SecureString
         $SendGridToken = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR(($SecureToken)))
         }

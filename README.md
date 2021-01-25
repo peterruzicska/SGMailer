@@ -20,8 +20,6 @@ Send-SGMail -From john.doe@example.com -To jane.doe@example.com -Subject \"Confe
   - [New-SGToken](#new-sgtoken)
   - [Get-SGTokenUsageScript](#get-sgtokenusagescript)
 ## Send-SGMail
-<details>
-<summary>details</summary>
 ### NAME
 Send-SGMail
 ### SYNOPSIS
@@ -55,7 +53,6 @@ Send-SGEmail -From john.doe@example.com -To jane.doe@example.com -Subject \"Conf
 ### -------------------------- EXAMPLE 2 --------------------------
 PS \> # Send a plain text email
 Send-SGEmail -From jane.doe@example.com -To john.doe@example.com -Subject \"Re: Confession\" -Body \"Love you too!\" -NoHTML
-</details>
 ## Install-SGToken
 ### NAME
 Install-SGToken

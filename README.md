@@ -11,7 +11,7 @@ SendGrid v3 REST API PowerShell module for sending automated emails via SendGrid
   - mail.send
 ## Setting up the environment, basic usage
 Install-Module SGMailer
-\<\<API key with API key creation privilege\>\> | New-SGToken | Install-SGToken
+**API key with API key creation privilege** | New-SGToken | Install-SGToken
 After Install-Token, a new PS session is needed!
 Send-SGMail -From john.doe@example.com -To jane.doe@example.com -Subject \"Confession\" -Body \"\<p\>\<b\>LOVE\</b\> \<i\>you!\</i\>\</p\>\"
 # Exported functions
@@ -20,6 +20,8 @@ Send-SGMail -From john.doe@example.com -To jane.doe@example.com -Subject \"Confe
   - [New-SGToken](#new-sgtoken)
   - [Get-SGTokenUsageScript](#get-sgtokenusagescript)
 ## Send-SGMail
+<details>
+<summary>details</summary>
 ### NAME
 Send-SGMail
 ### SYNOPSIS
@@ -53,6 +55,7 @@ Send-SGEmail -From john.doe@example.com -To jane.doe@example.com -Subject \"Conf
 ### -------------------------- EXAMPLE 2 --------------------------
 PS \> # Send a plain text email
 Send-SGEmail -From jane.doe@example.com -To john.doe@example.com -Subject \"Re: Confession\" -Body \"Love you too!\" -NoHTML
+</details>
 ## Install-SGToken
 ### NAME
 Install-SGToken

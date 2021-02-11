@@ -1,4 +1,47 @@
-﻿function Get-SGTokenUsageScript{
+﻿function ConvertTo-SGEncryptedToken {
+    <#
+    .Synopsis
+    Encrypts token with machine key for later use.
+
+    .Description
+    Encrypts token with machine key for later use.
+
+    .Parameter Token
+    Token to be encrypted.
+
+    .Example
+    ConvertTo-SGEncryptedToken -Token "SG.asdfASDF1234....."
+
+    #>
+    param(
+        [Parameter(Mandatory,ValueFromPipeline)][String]$Token
+        )
+    Add-Type -AssemblyName System.Security
+    return [System.Convert]::ToBase64String([Security.Cryptography.ProtectedData]::Protect([System.Text.Encoding]::Unicode.GetBytes($Token), $null, [Security.Cryptography.DataProtectionScope]::LocalMachine))
+    }
+
+function ConvertFrom-SGEncryptedToken {
+    <#
+    .Synopsis
+    Decrypts token with machine key.
+
+    .Description
+    Decrypts token with machine key.
+
+    .Parameter Token
+    Token to be decrypted.
+
+    .Example
+    ConvertFrom-SGEncryptedToken -Token "SG.asdfASDF1234....."
+
+    #>
+    param(
+        [Parameter(Mandatory,ValueFromPipeline)][String]$Token
+        )
+    Add-Type -AssemblyName System.Security
+    return [System.Text.Encoding]::Unicode.GetString([Security.Cryptography.ProtectedData]::Unprotect([System.Convert]::FromBase64String($Token), $null, [Security.Cryptography.DataProtectionScope]::LocalMachine))
+    }
+function Get-SGTokenUsageScript{
     <#
     .Synopsis
     Gets the code snippet to be pasted into scripts where emails will be sent from. Must use Install-SGToken first.
@@ -16,10 +59,9 @@
     param(
         [switch]$CopyToClipboard
         )
-    if(!$env:SendGridToken){throw "SendGridToken missing. If you installed it, please try it from a new PS session! Otherwise give it directly using the -SendGridToken parameter or install it using the Install-SGToken command."}
+    if(!$env:SendGridToken){throw "SendGridToken missing. If you installed it, please try it from a new PS session! If not, please install it using the Install-SGToken command."}
     else{
-        $CodeSnippet = [Scriptblock]::Create('[SecureString]$SecureToken = [System.Environment]::GetEnvironmentVariable("SendGridToken","Machine") |ConvertTo-SecureString
-    $SendGridToken = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR(($SecureToken)))')
+        $CodeSnippet = [Scriptblock]::Create('ConvertFrom-SGEncryptedToken -Token $env:SendGridToken')
         if($CopyToClipboard){$CodeSnippet |Set-Clipboard}
         else{return $CodeSnippet}
         }
@@ -92,14 +134,14 @@ function Install-SGToken{
         $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown") |out-null
 
         ##Scriptblock for converting Token to SecureString and setting as SendGridToken environment variable
-        $SetENVVar = [Scriptblock]::Create("[System.Environment]::SetEnvironmentVariable('SendGridToken',([SecureString]('"+$Token+"' | ConvertTo-SecureString -AsPlainText -Force) |ConvertFrom-SecureString),'Machine')")
+        $SetENVVar = [Scriptblock]::Create("[System.Environment]::SetEnvironmentVariable('SendGridToken',(ConvertTo-SGEncryptedToken -Token $Token),'Machine')")
 
         ##Starting elevated process and executing the scriptblock
         Start-Process powershell.exe -Verb RunAs -ArgumentList "-command $SetENVVar"
         }
     else{
         ##Converting Token to SecureString and setting as SendGridToken environment variable
-        [System.Environment]::SetEnvironmentVariable('SendGridToken',([SecureString]($Token | ConvertTo-SecureString -AsPlainText -Force) |ConvertFrom-SecureString),'Machine')
+        [System.Environment]::SetEnvironmentVariable('SendGridToken',(ConvertTo-SGEncryptedToken -Token $Token),'Machine')
         }
     }
 
@@ -159,8 +201,7 @@ function Send-SGMail{
     ## Getting SendGridToken
     if(!$SendGridToken){
         if(!$env:SendGridToken){throw "SendGridToken missing. If you installed it, please try it from a new PS session! Otherwise give it directly using the -SendGridToken parameter or install it using the Install-SGToken command."}
-        [SecureString]$SecureToken = [System.Environment]::GetEnvironmentVariable("SendGridToken","Machine") |ConvertTo-SecureString
-        $SendGridToken = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR(($SecureToken)))
+        $SendGridToken = ConvertFrom-SGEncryptedToken -Token $env:SendGridToken
         }
 
     ## Building data for JSON
@@ -188,5 +229,5 @@ function Send-SGMail{
     Invoke-RestMethod @Parameters
     }
 
-Export-ModuleMember -Function Send-SGMail,Install-SGToken,New-SGToken,Get-SGTokenUsageScript
+Export-ModuleMember -Function Send-SGMail,Install-SGToken,New-SGToken,Get-SGTokenUsageScript,ConvertTo-SGEncryptedToken,ConvertFrom-SGEncryptedToken
 

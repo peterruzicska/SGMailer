@@ -199,8 +199,10 @@ function Send-SGMail{
 
     ## Getting SendGridToken
     if(!$SendGridToken){
-        if("SendGridToken" -in (Get-Item 'Registry::HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\' |select -ExpandProperty property)){throw "SendGridToken missing. Give it directly using the -SendGridToken parameter or install it using the Install-SGToken command."}
-        $SendGridToken = ConvertFrom-SGEncryptedToken -Token (Get-ItemProperty 'Registry::HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment' -Name SendGridToken).SendGridToken
+        if("SendGridToken" -in (Get-Item 'Registry::HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\' |select -ExpandProperty property)){
+            $SendGridToken = ConvertFrom-SGEncryptedToken -Token (Get-ItemProperty 'Registry::HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment' -Name SendGridToken).SendGridToken
+            }
+        else{throw "SendGridToken missing. Give it directly using the -SendGridToken parameter or install it using the Install-SGToken command."}
         }
 
     ## Building data for JSON

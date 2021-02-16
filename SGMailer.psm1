@@ -59,11 +59,13 @@ function Get-SGTokenUsageScript{
     param(
         [switch]$CopyToClipboard
         )
-    if(("SendGridToken" -in (Get-Item 'Registry::HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\' |select -ExpandProperty property))){throw "SendGridToken missing. If you installed it, please try it from a new PS session! If not, please install it using the Install-SGToken command."}
-    else{
+    if("SendGridToken" -in (Get-Item 'Registry::HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\' |select -ExpandProperty property)){
         $CodeSnippet = [Scriptblock]::Create('ConvertFrom-SGEncryptedToken -Token $env:SendGridToken')
         if($CopyToClipboard){$CodeSnippet |Set-Clipboard}
         else{return $CodeSnippet}
+        }
+    else{
+        throw "SendGridToken missing. If you installed it, please try it from a new PS session! If not, please install it using the Install-SGToken command."
         }
     }
 function New-SGToken{

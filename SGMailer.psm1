@@ -41,33 +41,6 @@ function ConvertFrom-SGEncryptedToken {
     Add-Type -AssemblyName System.Security
     return [System.Text.Encoding]::Unicode.GetString([Security.Cryptography.ProtectedData]::Unprotect([System.Convert]::FromBase64String($Token), $null, [Security.Cryptography.DataProtectionScope]::LocalMachine))
     }
-function Get-SGTokenUsageScript{
-    <#
-    .Synopsis
-    Gets the code snippet to be pasted into scripts where emails will be sent from. Must use Install-SGToken first.
-
-    .Description
-    Gets the code snippet to be pasted into scripts where emails will be sent from. Must use Install-SGToken first.
-
-    .Parameter CopyToClipboard
-    If given, the code snippet will be copied to the clipboard.
-
-    .Example
-    Get-SGTokenUsageScript -CopyToClipboard
-
-    #>
-    param(
-        [switch]$CopyToClipboard
-        )
-    if("SendGridToken" -in (Get-Item 'Registry::HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\' |select -ExpandProperty property)){
-        $CodeSnippet = [Scriptblock]::Create('ConvertFrom-SGEncryptedToken -Token $env:SendGridToken')
-        if($CopyToClipboard){$CodeSnippet |Set-Clipboard}
-        else{return $CodeSnippet}
-        }
-    else{
-        throw "SendGridToken missing. If you installed it, please try it from a new PS session! If not, please install it using the Install-SGToken command."
-        }
-    }
 function New-SGToken{
     <#
     .Synopsis
@@ -232,5 +205,5 @@ function Send-SGMail{
     Invoke-RestMethod @Parameters
     }
 
-Export-ModuleMember -Function Send-SGMail,Install-SGToken,New-SGToken,Get-SGTokenUsageScript,ConvertTo-SGEncryptedToken,ConvertFrom-SGEncryptedToken
+Export-ModuleMember -Function Send-SGMail,Install-SGToken,New-SGToken,ConvertTo-SGEncryptedToken,ConvertFrom-SGEncryptedToken
 

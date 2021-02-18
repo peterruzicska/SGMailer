@@ -23,7 +23,6 @@ Send-SGMail -From john.doe@example.com -To jane.doe@example.com -Subject "Confes
   - [Send-SGMail](#send-sgmail)
   - [Install-SGToken](#install-sgtoken)
   - [New-SGToken](#new-sgtoken)
-  - [Get-SGTokenUsageScript](#get-sgtokenusagescript)
   - [ConvertTo-SGEncryptedToken](#convertto-sgencryptedtoken)
   - [ConvertFrom-SGEncryptedToken](#convertfrom-sgencryptedtoken)
 ## Send-SGMail
@@ -96,22 +95,6 @@ This cmdlet supports the common parameters: Verbose, Debug, ErrorAction, ErrorVa
 PS > New-SGToken -AdminToken \"SG.asdfASDF1234.....\"
 ### -------------------------- EXAMPLE 2 --------------------------
 PS > New-SGToken -APIKeyName \"Johns PC\" -AdminToken \"SG.asdfASDF1234.....\"
-## Get-SGTokenUsageScript
-### NAME
-Get-SGTokenUsageScript
-### SYNOPSIS
-Gets the code snippet to be pasted into scripts where emails will be sent from. Must use Install-SGToken first.
-### SYNTAX
-Get-SGTokenUsageScript [-CopyToClipboard] [\<CommonParameters\>]
-### DESCRIPTION
-Gets the code snippet to be pasted into scripts where emails will be sent from. Must use Install-SGToken first.
-### PARAMETERS
-#### -CopyToClipboard [\<SwitchParameter\>]
-If given, the code snippet will be copied to the clipboard.
-#### \<CommonParameters\>
-This cmdlet supports the common parameters: Verbose, Debug, ErrorAction, ErrorVariable, WarningAction, WarningVariable, OutBuffer, PipelineVariable, and OutVariable. For more information, see about_CommonParameters (https://go.microsoft.com/fwlink/?LinkID=113216).
-### -------------------------- EXAMPLE 1 --------------------------
-PS > Get-SGTokenUsageScript -CopyToClipboard
 ## ConvertTo-SGEncryptedToken
 ### NAME
 ConvertTo-SGEncryptedToken

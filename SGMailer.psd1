@@ -12,19 +12,19 @@
 RootModule = 'SGMailer.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.0.0.10'
+ModuleVersion = '1.0.0.11'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
 
 # ID used to uniquely identify this module
-GUID = '3d0b0cb6-e661-4d20-bcd6-e4e319465496'
+GUID = '39a525ad-2c77-4702-a48c-2a5a0921920f'
 
 # Author of this module
 Author = 'Peter Ruzicska'
 
 # Company or vendor of this module
-CompanyName = 'Peter Ruzicska'
+CompanyName = 'Unknown'
 
 # Copyright statement for this module
 Copyright = '(c) Peter Ruzicska. All rights reserved.'
@@ -32,20 +32,20 @@ Copyright = '(c) Peter Ruzicska. All rights reserved.'
 # Description of the functionality provided by this module
 Description = 'SendGrid v3 REST API PowerShell module for sending automated emails via SendGrid.'
 
-# Minimum version of the Windows PowerShell engine required by this module
+# Minimum version of the PowerShell engine required by this module
 PowerShellVersion = '5.1'
 
-# Name of the Windows PowerShell host required by this module
+# Name of the PowerShell host required by this module
 # PowerShellHostName = ''
 
-# Minimum version of the Windows PowerShell host required by this module
+# Minimum version of the PowerShell host required by this module
 # PowerShellHostVersion = ''
 
 # Minimum version of Microsoft .NET Framework required by this module. This prerequisite is valid for the PowerShell Desktop edition only.
 # DotNetFrameworkVersion = ''
 
 # Minimum version of the common language runtime (CLR) required by this module. This prerequisite is valid for the PowerShell Desktop edition only.
-# CLRVersion = ''
+# ClrVersion = ''
 
 # Processor architecture (None, X86, Amd64) required by this module
 # ProcessorArchitecture = ''
@@ -109,6 +109,15 @@ PrivateData = @{
 
         # ReleaseNotes of this module
         # ReleaseNotes = ''
+
+        # Prerelease string of this module
+        # Prerelease = ''
+
+        # Flag to indicate whether the module requires explicit user acceptance for install/update/save
+        # RequireLicenseAcceptance = $false
+
+        # External dependent modules of this module
+        # ExternalModuleDependencies = @()
 
     } # End of PSData hashtable
 

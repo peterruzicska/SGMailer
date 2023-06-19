@@ -80,6 +80,7 @@ function New-SGToken{
         }
     
     ## Sending REST request
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     $ApiKey = (Invoke-RestMethod @Parameters).api_key
     return $ApiKey
     }
@@ -202,6 +203,7 @@ function Send-SGMail{
         }
 
     ## Sending REST request
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     Invoke-RestMethod @Parameters
     }
 
